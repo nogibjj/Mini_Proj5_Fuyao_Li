@@ -30,6 +30,8 @@ Author: Fuyao Li
     ``` python
     delete_subject(99)
     ```
+### Result:
+All CRUD Operations are shown in `db_log.md`.
 
 ### References:
 https://github.com/nogibjj/sqlite-lab
