@@ -1,28 +1,44 @@
 """
 Transforms and Loads data into the local SQLite3 database
-Example:
-,general name,count_products,ingred_FPro,avg_FPro_products,avg_distance_root,ingred_normalization_term,semantic_tree_name,semantic_tree_node
 """
 import sqlite3
 import csv
-import os
 
 
 # load the csv file and insert into a new sqlite3 database
-def load(dataset="/workspaces/sqlite-lab/data/GroceryDB_IgFPro.csv"):
+def load(dataset="data/trump.csv"):
     """ "Transforms and Loads data into the local SQLite3 database"""
-
-    # prints the full working directory and path
-    print(os.getcwd())
-    payload = csv.reader(open(dataset, newline=""), delimiter=",")
-    conn = sqlite3.connect("GroceryDB.db")
-    c = conn.cursor()
-    c.execute("DROP TABLE IF EXISTS GroceryDB")
-    c.execute(
-        "CREATE TABLE GroceryDB (id,general_name, count_products, ingred_FPro, avg_FPro_products, avg_distance_root, ingred_normalization_term, semantic_tree_name, semantic_tree_node)"
-    )
-    # insert
-    c.executemany("INSERT INTO GroceryDB VALUES (?,?, ?, ?, ?, ?, ?, ?, ?)", payload)
-    conn.commit()
-    conn.close()
-    return "GroceryDB.db"
+    with open(dataset, newline="", encoding="utf-8") as file:
+        payload = csv.reader(file, delimiter=",")
+        # skips the header of csv
+        next(payload)
+        conn = sqlite3.connect("CityDB.db")
+        c = conn.cursor()
+        c.execute("DROP TABLE IF EXISTS CityDB")
+        c.execute(
+            """
+            CREATE TABLE CityDB (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                date TEXT,
+                location TEXT,
+                city TEXT,
+                state TEXT,
+                lat FLOAT,
+                lng FLOAT
+            )
+        """
+        )
+    
+        # insert
+        c.executemany(
+            """
+            INSERT INTO CityDB 
+            (date, location, city, state, lat, lng) 
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            payload,
+        )
+        conn.commit()
+        conn.close()
+        
+    return "CityDB.db"
