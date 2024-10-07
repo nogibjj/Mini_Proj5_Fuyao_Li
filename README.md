@@ -1,15 +1,35 @@
-## SQLite Lab
+## Mini_Project5
 
-### Lab:
+Author: Fuyao Li
 
-In this lab we extract the grocerydb database which is hosted on a github repository. We transform and load it into SQLite and then execute two sample queries: 
-* Sum of the count_product column.
-* Average of the count_product column.
+### Requirements:
++ Connect to a SQL database
++ Perform CRUD operations (create, read, update, and delete)
 
-Artitechtural diagram showing how the project works:
+### Preparation:
++ Built virtual environment: `pip install -r requirements.txt`
++ Extract a dataset from a URL: `extract.py`
++ Loads the transformed data: `transform_load.py`, load the transformed data into a SQLite database table using Python's sqlite3 module.
 
-![etl](https://github.com/nogibjj/sqlite-lab-fj49/assets/101464414/2809102f-e363-4d23-8311-b7ec04f43804)
+### Sample CRUD Operations:
++ Create
+    ``` python 
+    create_query1 = ("6/27/2018", "Durham South", "Durham", "NC", 35.99, 78.90)
+    create_subject(create_query1)
+    ```
++ Read
+    ``` python
+    read_data()
+    ```
++ Update
+    ``` python 
+    update_query = (107, "8/29/2018", "Durham South", "Durham", "NC", 35.99, 78.90)
+    update_subject(update_query)
+    ```
++ Delete
+    ``` python
+    delete_subject(99)
+    ```
 
-I took help from Claude.AI from the company Anthropic (Open AI's competitor)
-
-
+### References:
+https://github.com/nogibjj/sqlite-lab
